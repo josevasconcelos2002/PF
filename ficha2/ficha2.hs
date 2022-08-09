@@ -1,6 +1,6 @@
 module Ficha2 where
 
-
+import Data.Char
 
 -- 2
 
@@ -64,5 +64,26 @@ nosPrimeiros a ((x,xs):h) | a == x = True
 
 -- i)
 
+{-
 sumTriplos :: (Num a, Num b, Num c) => [(a,b,c)] -> (a,b,c)
-sumTriplos ((a,b,c),(d,e,f)):h = (a+d,b+e,) 
+sumTriplos ((a,b,c),(d,e,f)):h = (a+d,b+e,c+f):sumTriplos h
+-} 
+
+-- 3
+
+-- a)
+
+{-
+soDigitos :: [Char] -> [Char]
+soDigitos [] = []
+soDigitos (x:xs) | ord x >=  && ord x <=  = x : soDigitos xs
+                 | otherwise = soDigitos xs
+-}
+
+-- b)
+
+-- 4
+type 
+-- a)
+
+conta :: Int ->
