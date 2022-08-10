@@ -83,7 +83,31 @@ soDigitos (x:xs) | ord x >=  && ord x <=  = x : soDigitos xs
 -- b)
 
 -- 4
-type 
+
+type Polinomio = [Monomio]
+type Monomio = (Int,Int)
+
 -- a)
 
-conta :: Int ->
+conta :: Int -> Polinomio -> Int
+conta n ((x,xs):h) | xs == n = 1 + conta n h
+                   | otherwise = conta n h
+
+-- b)
+{-
+grau :: Polinomio -> Int
+grau ((x,xs):h) | length (x,xs):h == 1 = xs
+                | grau h >= xs = snd h
+                | otherwise = xs
+-}
+
+-- c)
+
+selgrau :: Int -> Polinomio -> Polinomio
+selgrau n ((x,xs):h) | n == xs = (x,xs) : selgrau n h
+                     | otherwise = selgrau n h
+
+-- d)
+
+deriv :: Polinomio -> Polinomio
+deriv ((x,xs):h) = (x*xs,xs-1) : deriv h
