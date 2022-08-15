@@ -96,11 +96,43 @@ data Hora1 = H Int Int
      deriving (Show,Eq)
 
 -- a)
-{-}
+
 testa_h1 :: Hora1 -> Bool
-testa_h1  a b    | a >= 00 && a <= 23 && b >= 00 && b <= 59 = True
-                 | otherwise = False 
--}
+testa_h1 (H a b)    | a >= 00 && a <= 23 && b >= 00 && b <= 59 = True
+                    | otherwise = False 
+
+
+-- b)
+
+compara_h1 :: Hora1 -> Hora1 -> Bool
+compara_h1 (H a b) (H c d) |  testa_h1 (H a b) == True && testa_h1 (H c d) == True && a > c = True
+                           |  testa_h1 (H a b) == True && testa_h1 (H c d) == True && a == c && b > d = True
+                           |  otherwise = False
+
+-- c)
+
+converte_h_m1 :: Hora1 -> Int
+converte_h_m1 (H a b) | testa_h1 (H a b) == True = a*60 + b
+                      | otherwise = 0
+
+-- d)
+
+converte_m_h1 :: Int -> Hora1
+converte_m_h1 x | x >= 0 && x <= 1439 = (H (div x 60)  (mod x 60))
+                | otherwise = (H 0 0)
+
+-- e) 
+
+diferença1 :: Hora1 -> Hora1 -> Int
+diferença1 (H a b) (H c d) | converte_h_m1 (H a b) >= converte_h_m1 (H c d) = converte_h_m1 (H a b) - converte_h_m1 (H c d)
+                           | converte_h_m1 (H c d) > converte_h_m1 (H a b) = converte_h_m1 (H c d) - converte_h_m1 (H a b)
+                           | otherwise = 0
+
+-- f)
+
+adiciona1 :: Hora1 -> Int -> Hora1
+adiciona1 (H a b) x = converte_m_h1 (converte_h_m1 (H a b) + x)
+
 
 -- 5
 
