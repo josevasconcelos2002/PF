@@ -104,10 +104,23 @@ ordena [] = []
 ordena [(n,D d m a),(q,D x y z)] | (anterior (D d m a) (D x y z)) == True = [(n,D d m a),(q,D x y z)]
                                  | otherwise = [(q,D x y z),(n,D d m a)]
 {-
-ordena ((n,D d m a),(q,D x y z):h) | (anterior (D d m a) (D x y z)) == True = ((n,D d m a),(q,D x y z)) : ordena h
+ordena ((n,D d m a),(q,D x y z):h) | (anterior (D d m a) (D x y z)) == True = ((n,D d m a),(q,D x y z)) : ordena h  //como fazer para mais de dois TabDN?
                                    | otherwise = ((q,D x y z),(n,D d m a)): ordena h
 -}
 
+-- e)
+{-
+porIdade :: Data -> TabDN -> [(Nome,Int)]
+porIdade (D _ _ _) [] = []
+porIdade (D d m a) (((x,D w y z),(t,D k l p)):h) | idade1(D d m a) [(x,D w y z)] >= idade1(D d m a) [(t,D k l p)] = ((t,D k l p),(x,D w y z)):porIdade (D d m a) h  
+                                                 | otherwise = ((x,D w y z),(t,D k l p)):porIdade (D d m a) h
+idade1 :: Data -> TabDN -> Int
+idade1 (D _ _ _) [] = 0
+idade1 (D d m a) [(n,D w y z)] | a == z = 0
+                               | a>z && m>=y && d>=w = a-z
+                               | a>z && m<y = a-z-1
+                               | a>z && m==y && d<w = a-z-1
+-}
 -- 5)
 {-
 data Movimento = Credito Float | Debito Float
