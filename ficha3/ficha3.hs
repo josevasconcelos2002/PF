@@ -41,12 +41,75 @@ testa_viagem ((H a b , H c d),(H e f , H g i):h) | testa_etapa(H a b , H c d) &&
                                                  | otherwise = False
 -}
 
+-- 3)
+{-
+data Contacto = Casa Integer
+              | Trab Integer
+              | Tlm Integer
+              | Email String
+              deriving Show
 
+type Nome = String
+type Agenda = [(Nome, [Contacto])]
+-}
+-- a) 
+{-
+acrescEmail :: Nome -> String -> Agenda -> Agenda
+acrescEmail [] _ a = a 
+acrescEmail n e ((y,(x:xs)):h) = (((y,(x:xs)):h):(n,[Email e]))
+-}
 
+-- 4)
+type Dia = Int
+type Mes = Int
+type Ano = Int
+type Nome = String
 
+data Data = D Dia Mes Ano
+          deriving Show
+
+type TabDN = [(Nome,Data)]
+
+-- a)
+
+procura :: Nome -> TabDN -> Maybe Data
+procura [] _ = Nothing
+procura n [(x,D d m a)] | n == x = Just (D d m a)
+                        | otherwise = Nothing
+procura n ((x,D d m a):h) | n == x = Just (D d m a)
+                          | otherwise = procura n h
+
+-- b)
+
+idade :: Data -> Nome -> TabDN -> Maybe Int
+idade (D d m a) n ((x,D w y z):h) | n == x && a == z = Just 0
+                                  | n == x && a>z && m>=y && d>=w = Just (a-z)
+                                  | n == x && a>z && m<y = Just (a-z-1)
+                                  | n == x && a>z && m==y && d<w = Just (a-z-1) 
+                                  | n == x && a<z = Nothing
+                                  | otherwise = idade (D d m a) n h
+
+-- c)
+
+anterior :: Data -> Data -> Bool
+anterior (D d m a) (D x y z) | z>a = True
+                             | z == a && y>m = True
+                             | z == a && y == m && x>d = True
+                             | otherwise = False
+
+-- d)
+
+ordena :: TabDN -> TabDN
+ordena [] = []
+ordena [(n,D d m a),(q,D x y z)] | (anterior (D d m a) (D x y z)) == True = [(n,D d m a),(q,D x y z)]
+                                 | otherwise = [(q,D x y z),(n,D d m a)]
+{-
+ordena ((n,D d m a),(q,D x y z):h) | (anterior (D d m a) (D x y z)) == True = ((n,D d m a),(q,D x y z)) : ordena h
+                                   | otherwise = ((q,D x y z),(n,D d m a)): ordena h
+-}
 
 -- 5)
-
+{-
 data Movimento = Credito Float | Debito Float
                 deriving Show
 
@@ -55,6 +118,5 @@ data Data = D Int Int Int
 
 data Extracto = Ext Float [(Data, String, Movimento)]
                  deriving Show
-
+-}
 -- a)
-
