@@ -12,8 +12,8 @@ type Viagem = [Etapa]
 -- a)
 
 testa_h :: Hora -> Bool
-testa_h (H a b)    | a >= 00 && a <= 23 && b >= 00 && b <= 59 = True
-                   | otherwise = False
+testa_h (H a b) | a >= 00 && a <= 23 && b >= 00 && b <= 59 = True
+                | otherwise = False
 
 maior :: Etapa -> Bool
 maior (H a b , H c d) | a > c = False
@@ -65,14 +65,14 @@ type Mes = Int
 type Ano = Int
 type Nome = String
 
-data Data = D Dia Mes Ano
+data Data1 = D Dia Mes Ano
           deriving Show
 
 type TabDN = [(Nome,Data)]
 
 -- a)
 
-procura :: Nome -> TabDN -> Maybe Data
+procura :: Nome -> TabDN -> Maybe Data1
 procura [] _ = Nothing
 procura n [(x,D d m a)] | n == x = Just (D d m a)
                         | otherwise = Nothing
@@ -81,7 +81,7 @@ procura n ((x,D d m a):h) | n == x = Just (D d m a)
 
 -- b)
 
-idade :: Data -> Nome -> TabDN -> Maybe Int
+idade :: Data1 -> Nome -> TabDN -> Maybe Int
 idade (D d m a) n ((x,D w y z):h) | n == x && a == z = Just 0
                                   | n == x && a>z && m>=y && d>=w = Just (a-z)
                                   | n == x && a>z && m<y = Just (a-z-1)
@@ -91,7 +91,7 @@ idade (D d m a) n ((x,D w y z):h) | n == x && a == z = Just 0
 
 -- c)
 
-anterior :: Data -> Data -> Bool
+anterior :: Data1 -> Data1 -> Bool
 anterior (D d m a) (D x y z) | z>a = True
                              | z == a && y>m = True
                              | z == a && y == m && x>d = True
@@ -122,14 +122,21 @@ idade1 (D d m a) [(n,D w y z)] | a == z = 0
                                | a>z && m==y && d<w = a-z-1
 -}
 -- 5)
-{-
+
 data Movimento = Credito Float | Debito Float
                 deriving Show
 
-data Data = D Int Int Int
+data Data = D1 Int Int Int
             deriving Show
 
 data Extracto = Ext Float [(Data, String, Movimento)]
                  deriving Show
--}
+
 -- a)
+{-
+extValor :: Extracto -> Float -> [Movimento]
+extValor (Ext _ []) _ = []
+extValor (Ext s ((x,xs,xss):h)) v | (snd(xss))>v && (fst(xss)) == Credito = (Credito (snd(xss))): extValor (Ext s h) v
+                                  | (snd(xss))>v && (fst(xss)) == Debito = (Debito (snd(xss))): extValor (Ext s h) v
+                                  | otherwise = extValor (Ext s h) v
+-}
