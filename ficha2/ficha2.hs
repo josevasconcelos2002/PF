@@ -1,6 +1,6 @@
 module Ficha2 where
 
-import Data.Char
+import Data.Char()
 
 -- 2
 
