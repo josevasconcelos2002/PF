@@ -134,6 +134,12 @@ union1 (x:xs) (y:ys) | y == x = (x:xs) ++ (union1 (x:xs) ys)
                      | 
 -}
 
+--26)
+--incompleta
+nub1 :: Eq a => [a] -> [a]
+nub1 [] = []
+nub1 (x:h:xs) | h == x = [x] ++ nub1 (h:xs)
+              | otherwise = [x] ++ [h] ++ nub1 (h:xs)
 
 --31)
 insert1 :: Ord a => a -> [a] -> [a]
