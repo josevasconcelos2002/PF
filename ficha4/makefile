@@ -1,8 +1,8 @@
 HFLAGS=-Wall -Wextra
 
-ficha5: ficha5.o
-	ghc $(HFLAGS) $^ -o ficha5 -lm
-	rm ficha5.o
+ficha4: ficha4.o
+	ghc $(HFLAGS) $^ -o ficha4 -lm
+	rm ficha4.o
 
-ficha5.o: ficha5.hs
+ficha4.o: ficha4.hs
 		ghc $(HFLAGS) -c $^
