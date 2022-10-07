@@ -1,12 +1,20 @@
 module Ficha5 where
 
--- 3)
+-- exercicio 1
 
-type Mat a = [[a]]
+--a)
+any1 :: (a -> Bool) -> [a] -> Bool
+any1 _ [] = False
+any1 f (x:xs) | f x == True = True
+              | otherwise = any1 f xs 
 
--- a)
+--b)
+zipWith1 :: (a->b->c) -> [a] -> [b] -> [c]
+zipWith1 _ [] [] = []
+zipWith1 f (x:xs) (y:ys) = (f x y) : zipWith1 f xs ys
 
-dimOK :: Mat a -> Bool
-dimOK [] = False
-dimOK (((x:xs),(y:ys)):h) | length (x:xs) == length (y:ys) = True && dimOK h
-                          | otherwise = False 
+--c)
+takeWhile1 :: (a->Bool) -> [a] -> [a]
+takeWhile1 _ [] = []
+takeWhile1 f (x:xs) | f x == True = x : takeWhile1 f xs
+                    | otherwise = []
